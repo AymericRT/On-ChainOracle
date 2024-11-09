@@ -2,28 +2,30 @@ import { useState } from 'react';
 import { HttpCoinbase_backend } from 'declarations/HttpCoinbase_backend';
 
 function App() {
-  const [greeting, setGreeting] = useState('');
+  const [dataHistoryList, setDataHistoryList] = useState([]);
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const name = event.target.elements.name.value;
-    HttpCoinbase_backend.greet(name).then((greeting) => {
-      setGreeting(greeting);
+  function fetchDataHistory() {
+    HttpCoinbase_backend.dataHistory().then((dataHistory) => {
+      setDataHistoryList(dataHistory);
     });
-    return false;
   }
 
   return (
     <main>
       <img src="/logo2.svg" alt="DFINITY logo" />
-      <br />
-      <br />
-      <form action="#" onSubmit={handleSubmit}>
-        <label htmlFor="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting">{greeting}</section>
+      
+      <button onClick={fetchDataHistory}>Show Data History</button>
+      <section id="data-history-list">
+        {dataHistoryList.length > 0 ? (
+          <ul>
+            {dataHistoryList.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No Data Yet</p>
+        )}
+      </section>
     </main>
   );
 }
