@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "HttpCoinbase_backend": {
+      "main": "src/HttpCoinbase_backend/main.mo",
+      "type": "motoko"
+    },
+    "HttpCoinbase_frontend": {
+      "dependencies": [
+        "HttpCoinbase_backend"
+      ],
+      "source": [
+        "src/HttpCoinbase_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "HttpCoinbase_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
